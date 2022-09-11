@@ -1,0 +1,160 @@
+*, 
+*::after, 
+*::before{
+    margin: 0px;
+    font-family: poppins;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: roboto;
+}
+
+/* BlogPost */
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+    border-bottom: 1px solid rgba(0,0,0,0,0.05);
+}
+
+.blog-heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.blog-heading h3 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2e2e2e;
+}
+
+.blog-heading span {
+    color: #194aa0;
+}
+
+.blogpost-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+    flex-wrap: wrap;
+}
+
+.blogpost-box {
+    width: 350px;
+    background-color: #ffffff;
+    border: 0.1px solid #ececec;
+    margin: 20px;
+}
+
+.blogpost-img {
+    width: 100%;
+    height: auto;
+}
+
+.blogpost-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.blogpost-text {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.blogpost-text span {
+    color: #cc2323;
+}
+.blogpost-text .blogpost-title{
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #272727;
+}
+
+.blogpost-text p {
+    color: #9b9b9b;
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 20px 0px;
+}
+
+.blogpost-footer {
+    display: flex;
+    padding: 0 0 0 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.blogpost-footer img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 0.1rem;
+}
+
+.blogpost-footer p {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #a9a9a9;
+    float: right;
+    margin: 7px 0 0 7px;
+}
+
+.blogpost-footer a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.blogpost-footer a:hover {
+   color: #f33c3c;
+   transition: all ease 0.3s; 
+}
+
+@media(max-width:1250px) {
+    .blogpost-box{
+        width: 300px;
+    }
+}
+@media(max-width:1100px){
+    .blogpost-box {
+        width: 70%;
+    }
+}
+@media(max-width:550px){
+    .blogpost-box{
+        margin: 20px 10px;
+        width: 100%;
+    }
+    .container {
+        padding: 20px;
+    }
+}
+
+
+
+
+
+
+
