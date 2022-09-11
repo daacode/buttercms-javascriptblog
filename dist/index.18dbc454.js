@@ -543,6 +543,7 @@ const fetchBlog = async ()=>{
         const res = await fetch(`https://api.buttercms.com/v2/posts?auth_token=${read_token}`);
         const data = await res.json();
         let blogs = data.data;
+        console.log(blogs);
         blogs.map((blog)=>{
             const blogMarkup = `<!--blogpost-container-->
             <div class="blogpost-box" key={${blog.title}}>
@@ -563,9 +564,10 @@ const fetchBlog = async ()=>{
                         <img src="${blog.author.profile_image}" alt="avatar">
                         <p>${blog.author.first_name + " " + blog.author.last_name}</p>
                     </div>
-                    <a class="blogpost-link" href="/blog/${blog.title}">→</a>
+                    <a class="blogpost-link" href="/blog/${blog.slug}">→</a>
                 </div>
             </div>`;
+            console.log(blogMarkup);
             blogContainer.insertAdjacentHTML("afterbegin", blogMarkup);
         });
     } catch (error) {

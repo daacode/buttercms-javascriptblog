@@ -1,0 +1,157 @@
+*, :after, :before {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: poppins;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: roboto;
+}
+
+.container {
+  border-bottom: 1px solid rgba(0, 0, 0, 0, .05);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  display: flex;
+}
+
+.blog-heading {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.blog-heading h3 {
+  color: #2e2e2e;
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.blog-heading span {
+  color: #194aa0;
+}
+
+.blogpost-container {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  display: flex;
+}
+
+.blogpost-box {
+  width: 350px;
+  background-color: #fff;
+  border: .1px solid #ececec;
+  margin: 20px;
+}
+
+.blogpost-img {
+  width: 100%;
+  height: auto;
+}
+
+.blogpost-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.blogpost-text {
+  flex-direction: column;
+  padding: 20px;
+  display: flex;
+}
+
+.blogpost-text span {
+  color: #cc2323;
+}
+
+.blogpost-text .blogpost-title {
+  color: #272727;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.blogpost-text p {
+  color: #9b9b9b;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  margin: 20px 0;
+  font-size: .9rem;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.blogpost-footer {
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 0 20px;
+  display: flex;
+}
+
+.blogpost-footer img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: .1rem;
+}
+
+.blogpost-footer p {
+  color: #a9a9a9;
+  float: right;
+  margin: 7px 0 0 7px;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.blogpost-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.blogpost-footer a:hover {
+  color: #f33c3c;
+  transition: all .3s;
+}
+
+@media (max-width: 1250px) {
+  .blogpost-box {
+    width: 300px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .blogpost-box {
+    width: 70%;
+  }
+}
+
+@media (max-width: 550px) {
+  .blogpost-box {
+    width: 100%;
+    margin: 20px 10px;
+  }
+
+  .container {
+    padding: 20px;
+  }
+}
+
+/*# sourceMappingURL=blogpost.34df27b5.css.map */
