@@ -1,20 +1,21 @@
-import dotenv from "dotenv";
-dotenv.config();
+import { getAllBlogs } from "./api";
 
-const read_token = process.env.READ_API_TOKEN;
+const blogContainer = document.querySelector(".blogpost-container");
 
-const blogContainer = document.querySelector('.blogpost-container');
+const fetchMainBlogPage = async () => {
+  try {
+    const headerMarkup = ` <div class="blog-heading">
+    <h3>My Blog</h3>
+    <span>Here is my space where I writes different developer focused article</span>
+</div>
+`
+const headContainer = document.querySelector(".blog-container");
+headContainer.insertAdjacentHTML("afterbegin", headerMarkup);
 
-const fetchBlog = async () => {
-    try {
-        const res = await fetch(`https://api.buttercms.com/v2/posts?auth_token=${read_token}`);
-        const data = await res.json();
-        let blogs = data.data;
 
-        console.log(blogs);
-
-        {blogs.map((blog) => {
-        const blogMarkup = `<!--blogpost-container-->
+    const blogs = await getAllBlogs();
+    blogs.map((blog) => {
+      const blogMarkup = `<!--blogpost-container-->
             <div class="blogpost-box" key={${blog.title}}>
                 <!--img-->
                 <div class="blogpost-img">
@@ -23,27 +24,66 @@ const fetchBlog = async () => {
 
                 <!--blogpost text-->
                 <div class="blogpost-text">
-                    <span>${blog.tags[0].name}</span>
-                    <a href="#" class="blogpost-title">${blog.title}</a>
+                    <span class="blogpost-tag">${blog.tags[0].name}</span>
+                    <a href="/blog/${blog.slug}" class="blogpost-title">${blog.title}</a>
                     <p>${blog.summary}</p>
                 </div>
 
                 <div class="blogpost-footer">
                     <div>
                         <img src="${blog.author.profile_image}" alt="avatar">
-                        <p>${blog.author.first_name+" "+blog.author.last_name}</p>
+                        <p>${
+                          blog.author.first_name + " " + blog.author.last_name
+                        }</p>
                     </div>
                     <a class="blogpost-link" href="/blog/${blog.slug}">→</a>
                 </div>
-            </div>`
-            console.log(blogMarkup);
-    blogContainer.insertAdjacentHTML('afterbegin', blogMarkup);
-    })}
-    
-    } catch (error) {
-        alert(error)
-    }
-   
-}
+            </div>`;
+      blogContainer.insertAdjacentHTML("afterbegin", blogMarkup);
+    });
+  } catch (error) {
+    alert(error);
+  }
+};
 
-fetchBlog()
+const fetchABlogPage = async () => {
+  try {
+    const url = window.location.pathname;
+
+    const blogs = await getAllBlogs();
+
+    const blog = blogs.find((blog) => {
+      const parts = url.split("/");
+      return blog.slug === parts[parts.length - 1];
+    });
+
+    const blogMarkup = `<div class="blog-container">
+        <span class="blog-goBack"><a href="/">Go back</a></span>
+    <div class="blog-wrap">
+        <header>
+            <p class="blog-date">Published ${blog.created}</p>
+            <h1>${blog.title}</h1>
+            <div class="blog-tag">
+                <div>${blog.tags[0].name}</div>
+            </div>
+        </header>
+        <img src=${blog.featured_image} alt="cover" />
+        <div class="blog-content" dangerouslySetInnerHTML={{__html:${blog.body}}}></div>
+    </div>
+</div>`;
+
+blogContainer.insertAdjacentHTML("afterbegin", blogMarkup);
+  } catch (error) {
+    alert(error);
+  }
+};
+
+// This is a custom routing system.
+const url = window.location.pathname;
+const slugs = url.split("/");
+if (slugs.includes("blog")) {
+  fetchABlogPage();
+} else {
+  // localhost:1234
+  fetchMainBlogPage();
+}

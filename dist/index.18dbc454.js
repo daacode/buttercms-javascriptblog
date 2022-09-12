@@ -532,18 +532,18 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"1SICI":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _dotenv = require("dotenv");
-var _dotenvDefault = parcelHelpers.interopDefault(_dotenv);
-(0, _dotenvDefault.default).config();
-const read_token = "f1c4515bc16329a31dd86ae623f956eb354f5a3d";
+var _api = require("./api");
 const blogContainer = document.querySelector(".blogpost-container");
-const fetchBlog = async ()=>{
+const fetchMainBlogPage = async ()=>{
     try {
-        const res = await fetch(`https://api.buttercms.com/v2/posts?auth_token=${read_token}`);
-        const data = await res.json();
-        let blogs = data.data;
-        console.log(blogs);
+        const headerMarkup = ` <div class="blog-heading">
+    <h3>My Blog</h3>
+    <span>Here is my space where I writes different developer focused article</span>
+</div>
+`;
+        const headContainer = document.querySelector(".blog-container");
+        headContainer.insertAdjacentHTML("afterbegin", headerMarkup);
+        const blogs = await (0, _api.getAllBlogs)();
         blogs.map((blog)=>{
             const blogMarkup = `<!--blogpost-container-->
             <div class="blogpost-box" key={${blog.title}}>
@@ -554,8 +554,8 @@ const fetchBlog = async ()=>{
 
                 <!--blogpost text-->
                 <div class="blogpost-text">
-                    <span>${blog.tags[0].name}</span>
-                    <a href="#" class="blogpost-title">${blog.title}</a>
+                    <span class="blogpost-tag">${blog.tags[0].name}</span>
+                    <a href="/blog/${blog.slug}" class="blogpost-title">${blog.title}</a>
                     <p>${blog.summary}</p>
                 </div>
 
@@ -567,14 +567,63 @@ const fetchBlog = async ()=>{
                     <a class="blogpost-link" href="/blog/${blog.slug}">→</a>
                 </div>
             </div>`;
-            console.log(blogMarkup);
             blogContainer.insertAdjacentHTML("afterbegin", blogMarkup);
         });
     } catch (error) {
         alert(error);
     }
 };
-fetchBlog();
+const fetchABlogPage = async ()=>{
+    try {
+        const url = window.location.pathname;
+        const blogs = await (0, _api.getAllBlogs)();
+        const blog = blogs.find((blog)=>{
+            const parts = url.split("/");
+            return blog.slug === parts[parts.length - 1];
+        });
+        const blogMarkup = `<div class="blog-container">
+        <span class="blog-goBack"><a href="/">Go back</a></span>
+    <div class="blog-wrap">
+        <header>
+            <p class="blog-date">Published ${blog.created}</p>
+            <h1>${blog.title}</h1>
+            <div class="blog-tag">
+                <div>${blog.tags[0].name}</div>
+            </div>
+        </header>
+        <img src=${blog.featured_image} alt="cover" />
+        <div class="blog-content" dangerouslySetInnerHTML={{__html:${blog.body}}}></div>
+    </div>
+</div>`;
+        blogContainer.insertAdjacentHTML("afterbegin", blogMarkup);
+    } catch (error) {
+        alert(error);
+    }
+};
+// This is a custom routing system.
+const url = window.location.pathname;
+const slugs = url.split("/");
+if (slugs.includes("blog")) fetchABlogPage();
+else // localhost:1234
+fetchMainBlogPage();
+
+},{"./api":"9u7qN"}],"9u7qN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getAllBlogs", ()=>getAllBlogs);
+parcelHelpers.export(exports, "getBlog", ()=>getBlog);
+var _dotenv = require("dotenv");
+var _dotenvDefault = parcelHelpers.interopDefault(_dotenv);
+(0, _dotenvDefault.default).config();
+const read_token = "f1c4515bc16329a31dd86ae623f956eb354f5a3d";
+const getAllBlogs = async ()=>{
+    const res = await fetch(`https://api.buttercms.com/v2/posts?auth_token=${read_token}`);
+    return (await res.json()).data;
+};
+const getBlog = async (id)=>{
+    const data = await fetch(`https://api.buttercms.com/v2/posts?auth_token=${read_token}`);
+    return (await data.json()).data;
+};
 
 },{"dotenv":"lErsX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lErsX":[function(require,module,exports) {
 var process = require("process");

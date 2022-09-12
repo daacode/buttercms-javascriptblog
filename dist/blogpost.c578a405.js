@@ -550,33 +550,34 @@ const fetchBlog = async ()=>{
         const res = await fetch(`https://api.buttercms.com/v2/posts/${slug}?auth_token=${read_token}`);
         const data = await res.json();
         console.log(data);
-        let blogs = data.data;
-        blogs.map((blog)=>{
-            const blogMarkup = `<!--blogpost-container-->
-            <div class="blogpost-box" key={${blog.title}}>
-                <!--img-->
-                <div class="blogpost-img">
-                    <img src="${blog.featured_image}" alt="Blog">
-                </div>
+        let blog = data.data || {
+            tags: [],
+            author: {}
+        };
+        //console.log(blogs);
+        const blogMarkup = `<!--blogpost-container-->
+        <div class="blogpost-box" key={${blog.title}}>
+            <!--img-->
+            <div class="blogpost-img">
+                <img src="${blog.featured_image}" alt="Blog">
+            </div>
 
-                <!--blogpost text-->
-                <div class="blogpost-text">
-                    <span>${blog.tags[0].name}</span>
-                    <a href="#" class="blogpost-title">${blog.title}</a>
-                    <p>${blog.summary}</p>
-                </div>
+            <!--blogpost text-->
+            <div class="blogpost-text">
+                <span>${blog.tags[0].name}</span>
+                <a href="#" class="blogpost-title">${blog.title}</a>
+                <p>${blog.summary}</p>
+            </div>
 
-                <div class="blogpost-footer">
-                    <div>
-                        <img src="${blog.author.profile_image}" alt="avatar">
-                        <p>${blog.author.first_name + " " + blog.author.last_name}</p>
-                    </div>
-                    <a class="blogpost-link" href="/blog/${blog.slug}">→</a>
+            <div class="blogpost-footer">
+                <div>
+                    <img src="${blog.author.profile_image}" alt="avatar">
+                    <p>${blog.author.first_name + " " + blog.author.last_name}</p>
                 </div>
-            </div>`;
-            //console.log(blogMarkup);
-            blogPage.insertAdjacentHTML("afterbegin", blogMarkup);
-        });
+                <a class="blogpost-link" href="/blog/${blog.slug}">→</a>
+            </div>
+        </div>`;
+        blogPage.insertAdjacentHTML("afterbegin", blogMarkup);
     } catch (error) {
         alert(error);
     }

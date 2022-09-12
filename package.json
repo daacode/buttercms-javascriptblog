@@ -2,7 +2,7 @@
   "name": "buttercms-javascriptblog",
   "version": "1.0.0",
   "description": "A demo on how to build a blog with ButterCms and JavaScript",
-  "source": "src/blogpost.html",
+  "source": "src/index.html",
   "scripts": {
     "start": "parcel",
     "build": "parcel build"
