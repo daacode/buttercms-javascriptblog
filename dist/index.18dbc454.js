@@ -562,7 +562,7 @@ const fetchMainBlogPage = async ()=>{
                 <div class="blogpost-footer">
                     <div>
                         <img src="${blog.author.profile_image}" alt="avatar">
-                        <p>${blog.author.first_name + " " + blog.author.last_name}</p>
+                        <p class="blogpost-name">${blog.author.first_name + " " + blog.author.last_name}</p>
                     </div>
                     <a class="blogpost-link" href="/blog/${blog.slug}">→</a>
                 </div>
@@ -611,7 +611,6 @@ fetchMainBlogPage();
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getAllBlogs", ()=>getAllBlogs);
-parcelHelpers.export(exports, "getBlog", ()=>getBlog);
 var _dotenv = require("dotenv");
 var _dotenvDefault = parcelHelpers.interopDefault(_dotenv);
 (0, _dotenvDefault.default).config();
@@ -619,10 +618,6 @@ const read_token = "f1c4515bc16329a31dd86ae623f956eb354f5a3d";
 const getAllBlogs = async ()=>{
     const res = await fetch(`https://api.buttercms.com/v2/posts?auth_token=${read_token}`);
     return (await res.json()).data;
-};
-const getBlog = async (id)=>{
-    const data = await fetch(`https://api.buttercms.com/v2/posts?auth_token=${read_token}`);
-    return (await data.json()).data;
 };
 
 },{"dotenv":"lErsX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lErsX":[function(require,module,exports) {

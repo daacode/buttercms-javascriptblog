@@ -32,7 +32,7 @@ headContainer.insertAdjacentHTML("afterbegin", headerMarkup);
                 <div class="blogpost-footer">
                     <div>
                         <img src="${blog.author.profile_image}" alt="avatar">
-                        <p>${
+                        <p class="blogpost-name">${
                           blog.author.first_name + " " + blog.author.last_name
                         }</p>
                     </div>
@@ -45,6 +45,7 @@ headContainer.insertAdjacentHTML("afterbegin", headerMarkup);
     alert(error);
   }
 };
+
 
 const fetchABlogPage = async () => {
   try {

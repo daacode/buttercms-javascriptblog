@@ -10,10 +10,3 @@ export const getAllBlogs = async () => {
   return (await res.json()).data;
 };
 
-export const getBlog = async (id) => {
-  const data = await fetch(
-    `https://api.buttercms.com/v2/posts?auth_token=${read_token}`
-  );
-
-  return (await data.json()).data;
-};
